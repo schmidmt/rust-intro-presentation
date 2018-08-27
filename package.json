@@ -1,0 +1,30 @@
+{
+  "name": "rust-intro",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.0.0-rc.3",
+    "@babel/preset-env": "^7.0.0-rc.3",
+    "babel-loader": "^8.0.0-beta",
+    "copy-webpack-plugin": "^4.5.2",
+    "css-loader": "^1.0.0",
+    "deku": "^2.0.0-rc16",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^2.0.0",
+    "headjs": "^1.0.3",
+    "highlight.js": "^9.12.0",
+    "hljs": "^6.2.3",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "markdown-loader": "^4.0.0",
+    "marked": "^0.5.0",
+    "reveal.js": "^3.7.0",
+    "style-loader": "^0.22.1",
+    "webpack": "^4.17.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.6"
+  }
+}
