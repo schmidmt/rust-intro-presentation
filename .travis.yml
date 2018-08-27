@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+        - stable
+
+script: bash build.sh
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  localdir: dist
+  keep-history: true
+  on:
+    branch: master
