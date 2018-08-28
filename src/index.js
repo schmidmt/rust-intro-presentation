@@ -4,9 +4,9 @@ import hljs from "highlight.js";
 import localStyle from "./style.scss";
 
 import revealCss from "reveal.js/css/reveal.css";
-import revealTheme from "reveal.js/css/theme/moon.css";
+import revealTheme from "reveal.js/css/theme/beige.css";
 
-import hljsTheme from "highlight.js/styles/solarized-dark.css";
+import hljsTheme from "highlight.js/styles/default.css";
 
 let slides = document.getElementsByClassName("slides")[0];
 
