@@ -1,0 +1,87 @@
+<section>
+	<h3>Design of Rust</h3>
+	<h5>The compiler won't let you shoot yourself in the foot</h5> 
+	<ul>
+		<li class="fragment">
+			Rust was designed to be fast, concurrent, and memory safe.
+		</li>
+		<li class="fragment">
+			Basically, Rust wont let you do anything that breaks this design goal, unless explicitly stated.
+		</li>
+	</ul>
+</section>
+
+<section>
+	Let's look at how Rust handles two examples which are likely to compile in other languages.
+</section>
+
+<section>
+    In Rust, ownership of a section of memory is strictly enforced.
+<pre>
+<code class="rust hljs">
+fn main() {
+	let v = vec![1, 2, 3];
+	let v2 = v;
+	println!("{}", v[0]);
+}
+</code>
+</pre>
+</section>
+
+<section>
+    This fails to compile with
+<pre>
+error[E0382]: use of moved value: `v`
+ --&gt; src/main.rs:6:20
+4 |     let v2 = v;
+  |         -- value moved here
+5 |     
+6 |     println!("{}", v[0]);
+  |                    ^ value used here after move
+  = note: move occurs because `v` has type `std::vec::Vec<i32>`,
+    which does not implement the `Copy` trait
+
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0382`.
+</pre>
+
+<a href="https://play.rust-lang.org/?gist=1b02665e206bd4b5686bee0739558e34&version=stable&mode=debug&edition=2015">Playground</a>
+</section>
+
+<section>
+	When sharing references, the referent must live longer than the reference.
+<pre>
+<code class="rust hljs">
+fn main() {
+	let y: &i32;
+	{
+		let x = 5;
+		y = &x;
+	}
+	println!("{}", y);
+}
+</code>
+</pre>
+
+</section>
+<section>
+	This fails with the following:
+<pre>
+error[E0597]: `x` does not live long enough
+ --&gt; src/main.rs:5:14
+5 |         y = &amp;x;
+  |              ^ borrowed value does not live long enough
+6 |     }
+  |     - `x` dropped here while still borrowed
+7 |     println!("{}", y);
+8 | }
+  | - borrowed value needs to live until here
+error: aborting due to previous error
+
+For more information about this error, try `rustc --explain E0597`.
+</pre>
+<a href="https://play.rust-lang.org/?gist=0fad1b560934b28d9176949b07980dd1&version=stable&mode=debug&edition=2015">Playground</a>
+
+This prevents issues like null-dereferencing.
+</section>

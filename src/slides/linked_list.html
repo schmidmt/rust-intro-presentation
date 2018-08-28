@@ -13,59 +13,56 @@
 <section>
 	<h3>Building a Linked List</h3>
 	<h4>The Structure</h4>
-	<pre>
-		<code class="rust hljs">
-pub struct List<T> {
-	head: Link<T>,
+	<pre><code class="rust hljs">
+pub struct List&lt;T&gt; {
+    head: Link&lt;T&gt;,
 }
 
-type Link = Option<Box<Node<T>>>;
+type Link&lt;T&gt; = Option&lt;Box&lt;Node&lt;T&gt;&gt;&gt;;
 
-struct Node<T> {
-	elem: T,
-	next: Link<T>,
+struct Node&lt;T&gt; {
+    elem: T,
+    next: Link&lt;T&gt;,
 }
-		</code>
-	</pre>
+</code>	</pre>
 </section>
 
 <section>
 	<h3>Building a Linked List</h3>
 	<h4>Implementing Methods</h4>
-	<pre>
-		<code class="rust hljs">
-impl<T> List<T> {
-	pub fn new() -> Self {
-		List { head: None }
-	}
+	<pre><code class="rust hljs">
+impl&lt;T&gt; List&lt;T&gt; {
+    pub fn new() -&gt; Self {
+        List { head: None }
+    }
 
-	pub fn pop(&mut self) -> Option<T> {
-		self.head.take().map(|node| {
-			let n = *node;
-			self.head = n.next;
-			n.elem
-		})
-	}
+    pub fn pop(&amp;mut self) -&gt; Option&lt;T&gt; {
+        self.head.take().map(|node| {
+            let n = *node;
+            self.head = n.next;
+            n.elem
+        })
+    }
 
-	pub fn push(&mut self, elem: T) {
-		let new_node = Box::new(Node {
-			elem: elem,
-			next: self.head.take(),
-		});
+    pub fn push(&amp;mut self, elem: T) {
+        let new_node = Box::new(Node {
+            elem: elem,
+            next: self.head.take(),
+        });
 
-		self.head = Some(new_node);
-	}
+        self.head = Some(new_node);
+    }
 }
 
-impl<T> Drop for List<T> {
-	fn drop(&mut self) {
-		let mut cur_link = self.head.take();
-		while let Some(mut boxed_node) = cur_link {
-			cur_link = boxed_node.next.take();
-		}
-	}
+impl&lt;T&gt; Drop for List&lt;T&gt; {
+    fn drop(&amp;mut self) {
+        let mut cur_link = self.head.take();
+        while let Some(mut boxed_node) = cur_link {
+            cur_link = boxed_node.next.take();
+        }
+    }
 }
-		</code>
-	</pre>
+</code></pre>
+
+<a href="https://play.rust-lang.org/?gist=397ece437b9d238fa63edb8be0615e0a&version=stable&mode=debug&edition=2015">Playground</a>
 </section>
-

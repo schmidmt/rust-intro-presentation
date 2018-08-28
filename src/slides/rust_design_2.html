@@ -1,0 +1,175 @@
+<section>
+	<h3>The Rust Languate</h3>
+	<h5>Quick examples on writing Rust</h5>
+</section>
+
+<section>
+Variables are declared with let or const:
+<pre><code class="rust hljs">
+fn main() {
+    const PI: f64 = 3.14159265359_f64;
+    let x = 5;
+    let y: i32 = 10;
+    let mut z = 3;
+
+    z = z + 1;
+
+    let q: &amp;i32 = &amp;z;
+
+    println!("{} {} {} {} {}", PI, x, y, z, *q);
+}
+</code></pre>
+<a href="https://play.rust-lang.org/?gist=6abadb7673a4ec4b3d7cb549eb7e7367&version=stable&mode=debug&edition=2015">Playground</a>
+</section>
+
+<section>
+Functions are declared as follows
+<pre><code class="rust hljs">
+fn square(x: i32) -&gt; i32  {
+  x * x
+}
+
+fn main() {
+  println!("{}", square(8));
+}
+</code></pre>
+<a href="https://play.rust-lang.org/?gist=fa382b99ccb3a8f8cf0314ad8466fceb&version=stable&mode=debug&edition=2015">Playground</a>
+</section>
+
+<section>
+Branching logic should be pretty familiar:
+<pre><code class="rust hljs">
+fn main() {
+    let x = 10;
+
+    if x &gt; 5 {
+        println!("greater than five");
+    } else if x &lt;= 7 {
+	println!("less than or equal to seven")
+    } else {
+        println!("else")
+    }
+}
+</code></pre>
+<a href="https://play.rust-lang.org/?gist=22e88d33443052c16aeb9b8b7f1b0bc3&version=stable&mode=debug&edition=2015">Playground</a>
+</section>
+
+<section>
+Loops are pretty simple too:
+<pre><code class="rust hljs">
+fn main() {
+  for x in 0..10 {
+    println!("{}", x);
+  }
+
+  let mut done = false;
+  let mut y = 0;
+  while !done {
+    println!("{}", y);
+    if y &gt; 10 {
+      done = true;
+    }
+    y = y + 1;
+  }
+
+  loop {
+    println!("This Never terminates....");
+    break; // unless break is called
+  }
+}
+</code></pre>
+<a href="https://play.rust-lang.org/?gist=06505e598d6be6e51d5513b1a5a7adea&version=stable&mode=debug&edition=2015">Playground</a>
+</section>
+
+<section>
+Memory is organized into structures and enumerations.
+<pre><code class="rust hljs">
+pub struct Person {
+    name: String,
+    age: u32,
+}
+
+#[derive(Debug)]
+pub enum Role {
+    Engineer(String),
+    DataScientist,
+}
+
+fn main() {
+  let mike = Person {
+    name: String::from("Mike Schmidt"),
+    age: 30,
+  };
+  
+  let role = Role::DataScientist;
+  println!("{} aged {} in role {:?}", mike.name, mike.age, role);
+}
+</code></pre>
+<a href="https://play.rust-lang.org/?gist=dd8b7bcc00a35491972a41a0446f66e0&version=stable&mode=debug&edition=2015">Playground</a>
+</section>
+
+<section>
+Rust implements a traits system, similar to type classes, to provide ad hoc polymorphism.
+<pre><code class="rust hljs">
+trait Animal {
+    fn new(name: String) -&gt; Self;
+    fn speak(&amp;self) -&gt; String;
+}
+
+struct Human {
+    name: String,
+}
+struct Cat {
+    _name: String,
+}
+
+impl Animal for Human {
+    fn new(name: String) -&gt; Self {
+        Human { name }
+    }
+    fn speak(&amp;self) -&gt; String {
+        format!("{} says hi", self.name)
+    }
+}
+
+impl Animal for Cat {
+    fn new(name: String) -&gt; Self {
+        Cat { _name: name }
+    }
+    fn speak(&amp;self) -&gt; String {
+        String::from("Meow")
+    }
+}
+
+fn main() {
+    let mike = Human::new(String::from("Mike"));
+    let sylvester = Cat::new(String::from("Sylvester"));
+
+    println!("{}", mike.speak());
+    println!("{}", sylvester.speak());
+}
+</code></pre>
+<a href="https://play.rust-lang.org/?gist=03135f584c3b1b93408e5e1c2e17eb19&version=stable&mode=debug&edition=2015">Playground</a>
+</section>
+
+<section>
+Functions, structs, and traits can be made generic in a way similar to C++ templates.
+<pre><code class="rust hljs">
+struct GenericContainer&lt;T&gt; {
+    value: T,
+}
+
+fn square&lt;T: std::ops::Mul + Copy&gt;(x: T) -&gt; &lt;T as std::ops::Mul&gt;::Output {
+    x * x
+}
+
+fn main() {
+    let x = GenericContainer { value: 123 };
+    println!("{}", x.value);
+
+    println!("{}", square(11));
+    println!("{}", square(5.5));
+}
+</code></pre>
+<a href="https://play.rust-lang.org/?gist=9bb8781867242f687bc945dc3393bed0&version=stable&mode=debug&edition=2015">Playground</a>
+</section>
